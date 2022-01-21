@@ -35,6 +35,7 @@
                     <input type="text" name="to_when" placeholder="1/5 17時からの飲み会"/>
                    
                  <p><button type="button">登録</button></p>
+                 <div class='借りもの一覧'>[<a href='/things'>借りもの一覧</a>]</class></div>
 
 　　　　　　</form>
           

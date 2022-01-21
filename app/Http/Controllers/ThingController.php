@@ -9,7 +9,7 @@ class ThingController extends Controller
 
 
 {
-   public function register(Thing $thing)
+  public function register(Thing $thing)
     {
         return view('register');  
     }  
@@ -18,6 +18,11 @@ class ThingController extends Controller
     {
         return view('things')->with(['things' => $thing->get()]);  
     }
+    
+  public function sums(Thing $thing)
+    {
+        return view('sums');  
+    }  
     
      
 }

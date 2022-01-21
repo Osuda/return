@@ -15,3 +15,4 @@ use App\Http\Controllers\ThingController;
 
 Route::get('/', 'ThingController@register');
 Route::get('/things', 'ThingController@things');
+Route::get('/things/sums', 'ThingController@sums');

@@ -13,30 +13,9 @@
     </head>
     <body>
         <h1>お金のやり取り</h1>
-        　　<form action="/things" method="POST">
-          　　　　 <p>
-          　　　　 </p>
-          　　　　 <p>誰から</dr>
-          　　　    　 <input type="text" name="user_id" placeholder="山田さん"/>
-          　　　　 <p>借りもの</dr>
-         　　　　　　　　  <input type="text" name="thing" placeholder="お金"/>
-           　  　 <p>種別</dr>
-           　  　     <select name="borrowed_thing">
-                       <option value="money">お金</option>
-                       <option value="object">もの</option>
-                       <option value="else">その他</option>
-              　 <p>
-          
-           　     <p>金額</dr>
-                    <input type="text" name="cost" placeholder="1,000円"/>
-                 <p>何時から</dr>
-                    <input type="text" name="from_when" placeholder="1/1"/>
-                 <p>何時まで</dr>
-                    <input type="text" name="to_when" placeholder="1/5 17時からの飲み会"/>
-                   
-                 <p><button type="button">登録</button></p>
+        　　
 
-　　　　　　</form>
+　　　　　　<div class='戻る'>[<a href='/things'>戻る</a>]</class></div>
           
           
     </body>

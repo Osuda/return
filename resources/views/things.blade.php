@@ -8,7 +8,7 @@
     </head>
     <body>
         <h1>借りもの一覧</h1>
-        
+                  <div class='お金のやり取り'>[<a href='/things/sums'>お金のやり取り</a>]</class></div>
         <div class='things'>
             @foreach ($things as $thing)
                  
