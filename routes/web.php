@@ -10,7 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Http\Controllers\ThingController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', 'ThingController@register');
+Route::get('/things', 'ThingController@things');
