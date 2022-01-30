@@ -14,28 +14,29 @@
     <body>
         <h1>You must return!</h1>
         　　<form action="/" method="POST">
-          　　　　 <p>
-          　　　　 </p>
-          　　　　 <p>誰から</dr>
-          　　　    　 <input type="text" name="user_id" placeholder="山田さん"/>
-          　　　　 <p>借りもの</dr>
-         　　　　　　　　  <input type="text" name="thing" placeholder="お金"/>
-           　  　 <p>種別</dr>
-           　  　     <select name="borrowed_thing">
-                       <option value="money">お金</option>
-                       <option value="object">もの</option>
-                       <option value="else">その他</option>
-              　 <p>
+        　　      @csrf
+                <br>
+          　
+                <p>誰から</dr>
+                    <input type="text" name="thing[from_who]" placeholder="山田さん"/>
+                <p>借りもの</dr>
+                    <input type="text" name="thing[thing]" placeholder="お金"/>
+                <p>種別</dr>
+           　  　     <select name="thing[type]">
+                        <option value="money">お金</option>
+                        <option value="object">もの</option>
+                        <option value="else">その他</option>
+                    </select>
           
-           　     <p>金額</dr>
-                    <input type="number" name="cost" placeholder="1,000"/>
-                 <p>何時から</dr>
-                    <input type="text" name="from_when" placeholder="1/1"/>
-                 <p>何時まで</dr>
-                    <input type="text" name="to_when" placeholder="1/5 17時からの飲み会"/>
+                <p>金額</dr>
+                    <input type="number" name="thing[costs]" placeholder="1000"/>
+                <p>何時から</dr>
+                    <input type="datetime-local" name="thing[from_when]"/>
+                <p>何時まで</dr>
+                    <input type="datetime-local" name="thing[to_when]"/>
                    
-                 <p><button type="button">登録</button></p>
-                 <div class='借りもの一覧'>[<a href='/things'>借りもの一覧</a>]</class></div>
+                <p><input type="submit" value="登録"/></p>
+                    <div class='借りもの一覧'>[<a href='/things'>借りもの一覧</a>]</class></div>
 
 　　　　　　</form>
           

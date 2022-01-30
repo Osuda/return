@@ -24,6 +24,7 @@ class CreateThings＿table extends Migration
             $table->dateTime('from_when', 6);
             $table->softDeletes();
         });
+        
     }
 
     /**

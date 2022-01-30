@@ -7,7 +7,7 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     </head>
     <body>
-        <h1>借りもの一覧</h1>
+        <h1>{{ $things->from_who }}から借りたもの一覧</h1>
                 
         <div class='things'>
             
@@ -21,9 +21,9 @@
                     
                     <p>何を</p>
                         <p class='thing'>{{ $thing->thing }}</p>
-                    <p>誰から</p>
-                    <a href='/things/who'><p class='from_who'>{{ $thing->from_who }}</p></a>
-                        
+                    <p>何時まで</p>
+                        <p class='to_when'>{{ $thing->to_when }}</p>
+                    
                     [<a href='/things/{{ $thing->id }}'>詳細</a>]
                     
             @endforeach
@@ -39,16 +39,16 @@
                     
                     <p>金額</p>
                         <p class='costs'>{{ $sum->costs }}</p>
-                    <p>誰から</p>
-                    <a href='/things/who'><p class='from_who'>{{ $sum->from_who }}</p></a>
-                        
+                    <p>何時まで</p>
+                        <p class='to_when'>{{ $thing->to_when }}</p>
+                   
                     [<a href='/things/{{ $sum->id }}'>詳細</a>]
                     
             @endforeach
             
                 </div>
                 
-        　　<div class='戻る'>[<a href='/'>戻る</a>]</class></div>
+        　　<div class='戻る'>[<a href='/things'>戻る</a>]</class></div>
         </div>
     </body>
 </html>

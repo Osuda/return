@@ -12,7 +12,7 @@
 
     </head>
     <body>
-        <h1>お金のやり取り</h1>
+        <h1>総計</h1>
         　　
 
 　　　　　　<div class='戻る'>[<a href='/things'>戻る</a>]</class></div>
