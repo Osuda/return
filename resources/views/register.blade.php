@@ -23,9 +23,8 @@
                     <input type="text" name="thing[thing]" placeholder="お金"/>
                 <p>種別</dr>
            　  　     <select name="thing[type]">
-                        <option value="money">お金</option>
-                        <option value="object">もの</option>
-                        <option value="else">その他</option>
+                        <option value="お金">お金</option>
+                        <option value="もの">もの</option>
                     </select>
           
                 <p>金額</dr>

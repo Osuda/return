@@ -22,8 +22,6 @@ class Thing extends Model
            'to_when',
         ];
         
-        public $timestamps = false;
-        
         
         public function getPaginateByLimit(int $limit_count = 3)
     {

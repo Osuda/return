@@ -13,11 +13,10 @@ class Sum extends Model
             
            'id',
            'user_id',
-           'costs',
+           'cost_sum',
            'from_who',
         ];
         
-        public $timestamps = false;
         
         
         public function getPaginateByLimit(int $limit_count = 3)

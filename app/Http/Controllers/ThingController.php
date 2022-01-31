@@ -17,10 +17,10 @@ class ThingController extends Controller
     }  
     
     
-  public function things(Thing $thing)
+  public function things(Thing $thing, Sum $sum)
     {
-        $things = DB::table('things')->where('type', 'object')->get();
-        $sums = DB::table('things')->where('type', 'money')->get();
+        $things = $thing->where('type', 'もの')->get();
+        $sums = $sum->get();
         return view('things')->with(['things' => $things, 'sums' => $sums]);
 
     } 
@@ -37,22 +37,32 @@ class ThingController extends Controller
         return view('show')->with(['thing' => $thing]);
     }  
     
-  public function store(Request $request, Thing $thing)
+  public function store(Request $request, Thing $thing, Sum $sum)
     {
-        $input = $request['thing'];
-        $input['user_id']=0;
-        $thing->fill($input)->save();
-        if ('type' == 'money') {
-          $sum->fill($input)->save();
+        $input_to_things = $request['thing'];
+        $input_to_things['user_id']=0;
+        $thing->fill($input_to_things)->save();
+        if ($thing->type == 'お金') {
+          if ($sum->where('from_who', $thing->from_who)->exists()) {
+            //sumsテーブルのデータのうち，from_whoが入力されたfrom_whoと同じ値のデータのcust_sum＋入力したcosts。
+            $cust_sum = $sum['cost_sum']->where('from_who', $thing->from_who)+$thing['costs'];
+            //上記のデータでアップデート
+            $sum['cost_sum'] = update($cost_sum);
+          } else {
+          $input_to_sums['user_id']=$thing->user_id;
+          $input_to_sums['cost_sum']=$thing->costs;
+          $input_to_sums['from_who']=$thing->from_who;
+          $sum->fill($input_to_sums)->save();
+          }
         }
         return redirect('things');
     }
     
-    public function who(Thing $thing)
+    public function who($who, Thing $thing, Sum $sum)
     {
-        $things = DB::table('things')->where('type', 'object')->where('from_who', $thing)->first();
-        $sums = DB::table('things')->where('type', 'money')->where('from_who', $thing)->first();
-        return view('who')->with(['things' => $things, 'sums' => $sums]);
+        $things = $thing->where('from_who', $who)->get();
+        $sum_data = $sum->firstWhere('from_who', $who);
+        return view('who')->with(['things' => $things, 'sum' => $sum_data, 'who' => $who]);
 
     } 
     

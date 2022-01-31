@@ -22,7 +22,7 @@
                     <p>何を</p>
                         <p class='thing'>{{ $thing->thing }}</p>
                     <p>誰から</p>
-                    <a href='/things/who'><p class='from_who'>{{ $thing->from_who }}</p></a>
+                    <a href='/things/who/{{$thing->from_who}}'><p class='from_who'>{{ $thing->from_who }}</p></a>
                         
                     [<a href='/things/{{ $thing->id }}'>詳細</a>]
                     
@@ -38,11 +38,11 @@
                     <p class='id'>{{ $sum->id }}</p>
                     
                     <p>金額</p>
-                        <p class='costs'>{{ $sum->costs }}</p>
+                        <p class='cost_sum'>{{ $sum->cost_sum }}</p>
                     <p>誰から</p>
-                    <a href='/things/who'><p class='from_who'>{{ $sum->from_who }}</p></a>
+                    <a href='/things/who/{{$sum->from_who}}'><p class='from_who'>{{ $sum->from_who }}</p></a>
                         
-                    [<a href='/things/{{ $sum->id }}'>詳細</a>]
+                    <!--[<a href='/things/{{ $sum->id }}'>詳細</a>]-->
                     
             @endforeach
             

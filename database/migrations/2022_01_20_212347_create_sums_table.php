@@ -13,11 +13,13 @@ class CreateSumsTable extends Migration
      */
     public function up()
     {
-        Schema::create('_sums', function (Blueprint $table) {
+        Schema::create('sums', function (Blueprint $table) {
             $table->Increments('id');
             $table->integer('user_id');
             $table->unsignedBigInteger('cost_sum');
             $table->string('from_who', 50);
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

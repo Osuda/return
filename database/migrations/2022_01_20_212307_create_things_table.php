@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateThings＿table extends Migration
+class CreateThingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,14 +14,16 @@ class CreateThings＿table extends Migration
 
     public function up()
     {
-        Schema::create('_things', function (Blueprint $table) {
+        Schema::create('things', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
             $table->string('thing', 50);
             $table->string('type', 50);
             $table->unsignedBigInteger('costs');
             $table->string('from_who', 50);
+            $table->dateTime('to_when', 6);
             $table->dateTime('from_when', 6);
+            $table->timestamps();
             $table->softDeletes();
         });
         
