@@ -11,7 +11,7 @@
     @section('content')
     
     <body>
-        <h1>借りもの詳細</h1>
+        <h1>借りもの（返却済み）詳細</h1>
                   
         <div class='things'>
                  
@@ -32,26 +32,8 @@
                        <p class='to_when'>{{ $thing->to_when }}</p>
                     
                 </div>
-           
-            <form action="/things/{{ $thing->id }}" id="form_delete" method="post">
-                        @csrf
-                        @method('delete')
-                <input type="submit" style="display:none">
-                <p class='delete'>[<span onclick="return deletePost(this);">返却済み</span>]</p>
-            </form>
             
-        　　<div class='back'>[<a href='/things'>戻る</a>]</class></div>
-        　　
-        　　<script>
-                
-                function deletePost(e) {
-                    'use strict';
-                    if (confirm('返却済みにしますか？'))　{
-                        document.getElementById('form_delete').submit();
-                    }
-                }
-        
-            </script>
+        　　<div class='back'>[<a href='/things/returned'>戻る</a>]</class></div>
         　　
         </div>
     </body>

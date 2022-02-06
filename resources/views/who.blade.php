@@ -2,10 +2,14 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
-        <title>Blog</title>
+        <title>You must return!</title>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     </head>
+    
+    @extends('layouts.app')　
+    @section('content')
+    
     <body>
         <h1>{{ $who }}から借りたもの一覧</h1>
                 
@@ -67,4 +71,5 @@
         　　<div class='戻る'>[<a href='/things'>戻る</a>]</class></div>
         </div>
     </body>
+    @endsection
 </html>

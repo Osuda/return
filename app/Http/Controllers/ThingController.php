@@ -21,6 +21,7 @@ class ThingController extends Controller
     {
         $things = $thing->where('type', 'もの')->get();
         $sums = $sum->get();
+        $sums_cost = $sum->sum('cost_sum');
         return view('things')->with(['things' => $things, 'sums' => $sums]);
 
     } 
@@ -33,7 +34,7 @@ class ThingController extends Controller
     }  
     
   public function show(Thing $thing)
-    {
+    {   
         return view('show')->with(['thing' => $thing]);
     }  
     
@@ -44,10 +45,10 @@ class ThingController extends Controller
         $thing->fill($input_to_things)->save();
         if ($thing->type == 'お金') {
           if ($sum->where('from_who', $thing->from_who)->exists()) {
-            //sumsテーブルのデータのうち，from_whoが入力されたfrom_whoと同じ値のデータのcust_sum＋入力したcosts。
-            $cust_sum = $sum['cost_sum']->where('from_who', $thing->from_who)+$thing['costs'];
-            //上記のデータでアップデート
-            $sum['cost_sum'] = update($cost_sum);
+            $sum_data = $sum->firstWhere('from_who', $thing->from_who);
+            $thing_costs = $thing->costs;
+            $new_cost_sum = $sum_data->cost_sum+$thing_costs;
+            $sum_data->fill(['cost_sum' => $new_cost_sum])->save();
           } else {
           $input_to_sums['user_id']=$thing->user_id;
           $input_to_sums['cost_sum']=$thing->costs;
@@ -66,11 +67,36 @@ class ThingController extends Controller
 
     } 
     
-  public function delete(Thing $thing)
+  public function delete(Thing $thing, Sum $sum)
     {
         $thing->delete();
-        return redirect('things');
+        if ($thing->type == 'お金') {
+           if ($sum->where('from_who', $thing->from_who)->exists()) {
+            $sum_data = $sum->firstWhere('from_who', $thing->from_who);
+            $thing_costs = $thing->costs;
+            $new_cost_sum = $sum_data->cost_sum-$thing_costs;
+            $sum_data->fill(['cost_sum' => $new_cost_sum])->save();
+           }
+        }
+        //同じfrom_whoのデータがまだある場合，who.{who}に戻るようにしたい。
+        //$who = $thing->from_who;
+        //return redirect('who/{who}')->with(['who' => $who]);
+         return redirect('things');
     }
+    
+  public function returned(Thing $thing, Sum $sum)
+    {
+        $things = $thing->onlyTrashed()->whereNotNull('id')->get();
+        $sums = $sum->onlyTrashed()->whereNotNull('id')->get();
+        return view('returned')->with(['things' => $things, 'sums' => $sums]);
+    }
+  
+   public function returned_show(Thing $thing)
+    {
+        $thing->onlyTrashed()->whereNotNull('id')->get();
+        return view('returned_show')->with(['things' => $things]);
+    } 
+    
     
   
 }

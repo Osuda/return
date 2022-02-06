@@ -12,11 +12,14 @@
 */
 use App\Http\Controllers\ThingController;
 
-
-Route::get('/', 'ThingController@register');
-Route::get('/things', 'ThingController@things');
-Route::get('/things/sums', 'ThingController@sums');
-Route::get('/things/who/{who}', 'ThingController@who');
-Route::get('/things/{thing}', 'ThingController@show');
-Route::delete('/things/{thing}', 'ThingController@delete');
-Route::post('/', 'ThingController@store');
+Auth::routes();
+Route::group(['middleware' => ['auth']], function(){
+    Route::get('/', 'ThingController@register');
+    Route::get('/things', 'ThingController@things');
+    Route::get('/things/returned', 'ThingController@returned');
+    Route::get('/things/returned/{thing}', 'ThingController@returned_show');
+    Route::get('/things/who/{who}', 'ThingController@who');
+    Route::get('/things/{thing}', 'ThingController@show');
+    Route::delete('/things/{thing}', 'ThingController@delete');
+    Route::post('/', 'ThingController@store');
+});

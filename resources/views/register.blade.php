@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -8,9 +9,12 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
-
-
+    
     </head>
+    
+    @extends('layouts.app')　
+    @section('content')
+    
     <body>
         <h1>You must return!</h1>
         　　<form action="/" method="POST">
@@ -41,4 +45,5 @@
           
           
     </body>
+    @endsection
 </html>

@@ -11,7 +11,7 @@
     @section('content')
     
     <body>
-        <h1>借りもの一覧</h1>
+        <h1>返却済み一覧</h1>
                 
         <div class='things'>
             
@@ -23,19 +23,22 @@
                 
                     <p class='id'>{{ $thing->id }}</p>
                     
+                    <p>日時</p>
+                    <p class='created_at'>{{$thing->created_at}}</p>
                     <p>何を</p>
-                        <p class='thing'>{{ $thing->thing }}</p>
+                    <p class='thing'>{{ $thing->thing}}</p>
                     <p>誰から</p>
                     <a href='/things/who/{{$thing->from_who}}'><p class='from_who'>{{ $thing->from_who }}</p></a>
+                    
                         
-                    [<a href='/things/{{ $thing->id }}'>詳細</a>]
+                    [<a href='/things/returned/{{ $thing->id }}'>詳細</a>]
                     
             @endforeach
     
             
             <h2>お金</h2>
             
-            　　<!--<div class='総計'>総計:</class></div>-->
+            　　<div class='総計'>[<a href='/things/sums'>総計</a>]</class></div>
             　　
             @foreach ($sums as $sum)
                     
@@ -51,8 +54,8 @@
             @endforeach
             
                 </div>
-            <div class='返却済み一覧'>[<a href='/things/returned'>返却済み一覧</a>]</class></div>
-        　　<div class='戻る'>[<a href='/'>戻る</a>]</class></div>
+                
+        　　<div class='戻る'>[<a href='/things'>戻る</a>]</class></div>
         </div>
     </body>
     @endsection
