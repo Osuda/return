@@ -31,7 +31,9 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-
+        Route::bind('trashed_thing', function ($id) {
+            return \App\Models\Thing::onlyTrashed()->find($id);
+        });
         parent::boot();
     }
 
@@ -40,6 +42,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
+    
     public function map()
     {
         $this->mapApiRoutes();

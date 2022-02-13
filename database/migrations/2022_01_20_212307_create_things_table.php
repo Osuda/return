@@ -19,7 +19,7 @@ class CreateThingsTable extends Migration
             $table->integer('user_id');
             $table->string('thing', 50);
             $table->string('type', 50);
-            $table->unsignedBigInteger('costs');
+            $table->unsignedBigInteger('costs')->default(0);
             $table->string('from_who', 50);
             $table->dateTime('to_when', 6);
             $table->dateTime('from_when', 6);

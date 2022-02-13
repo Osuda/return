@@ -11,33 +11,28 @@
     @section('content')
     
     <body>
-        <h1>借りもの詳細</h1>
+        <h2 class='main'><i class="far fa-lightbulb"></i><span>借りもの詳細</span></h2>
                   
-        <div class='things'>
+        <div class='thing_show'>
                  
-                <div class='thing'>
+                <div class="box_2">
+                <div class="sen14">
                 
-                    <p class='id'>{{ $thing->id }}</p>
-                    <p>種別</p>
-                       <p class='type'>{{ $thing->type }}</p>
-                    <p>何を</p>
-                       <p class='thing'>{{ $thing->thing }}</p>
-                    <p>金額</p>
-                       <p class='costs'>{{ $thing->costs }}</p>
-                    <p>誰から</p>
-                       <p class='from_who'>{{ $thing->from_who }}</p>
-                    <p>何時から</p>
-                       <p class='from_when'>{{ $thing->from_when }}</p>
-                    <p>何時まで</p>
-                       <p class='to_when'>{{ $thing->to_when }}</p>
-                    
+                    <p class='thing'>何を：{{ $thing->thing }}</p>
+                    @if ($thing->type == 'お金')
+                        <p class='costs'>金額：{{ $thing->costs }}円</p>
+                    @endif
+                    <p class='from_who'>誰から：{{ $thing->from_who }}</p>
+                    <p class='from_when'>借りた日：{{ $thing->from_when }}</p>
+                    <p class='to_when'>返す日：{{ $thing->to_when }}</p>
+                </div>    
                 </div>
-           
+        </div>   
             <form action="/things/{{ $thing->id }}" id="form_delete" method="post">
                         @csrf
                         @method('delete')
                 <input type="submit" style="display:none">
-                <p class='delete'>[<span onclick="return deletePost(this);">返却済み</span>]</p>
+                <p class='delete_1'>[<span onclick="return deletePost(this);">返却済みにする</span>]</p>
             </form>
             
         　　<div class='back'>[<a href='/things'>戻る</a>]</class></div>
@@ -52,8 +47,6 @@
                 }
         
             </script>
-        　　
-        </div>
     </body>
     @endsection
 </html>

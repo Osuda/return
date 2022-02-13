@@ -13,6 +13,7 @@ class ThingController extends Controller
 {
   public function register(Thing $thing)
     {
+        
         return view('register');  
     }  
     
@@ -21,17 +22,10 @@ class ThingController extends Controller
     {
         $things = $thing->where('type', 'もの')->get();
         $sums = $sum->get();
-        $sums_cost = $sum->sum('cost_sum');
-        return view('things')->with(['things' => $things, 'sums' => $sums]);
+        $total_count = $sum->sum('cost_sum');
+        return view('things')->with(['things' => $things, 'sums' => $sums, 'total_count' => $total_count]);
 
     } 
-    
-  
-    
-  public function sums(Thing $thing)
-    {
-        return view('sums');  
-    }  
     
   public function show(Thing $thing)
     {   
@@ -42,6 +36,9 @@ class ThingController extends Controller
     {
         $input_to_things = $request['thing'];
         $input_to_things['user_id']=0;
+        if ($input_to_things->type == 'もの') {
+         $input_to_things['costs']=0;
+        }
         $thing->fill($input_to_things)->save();
         if ($thing->type == 'お金') {
           if ($sum->where('from_who', $thing->from_who)->exists()) {
@@ -55,7 +52,7 @@ class ThingController extends Controller
           $input_to_sums['from_who']=$thing->from_who;
           $sum->fill($input_to_sums)->save();
           }
-        }
+        } 
         return redirect('things');
     }
     
@@ -63,42 +60,53 @@ class ThingController extends Controller
     {
         $things = $thing->where('from_who', $who)->get();
         $sum_data = $sum->firstWhere('from_who', $who);
-        return view('who')->with(['things' => $things, 'sum' => $sum_data, 'who' => $who]);
+        $things_total_cost = $things->sum('costs');
+        return view('who')->with(['things' => $things, 'sum' => $sum_data, 'who' => $who, 'things_total_cost' => $things_total_cost]);
 
     } 
     
   public function delete(Thing $thing, Sum $sum)
     {
-        $thing->delete();
         if ($thing->type == 'お金') {
-           if ($sum->where('from_who', $thing->from_who)->exists()) {
+          if ($sum->where('from_who', $thing->from_who)->exists()) {
             $sum_data = $sum->firstWhere('from_who', $thing->from_who);
             $thing_costs = $thing->costs;
             $new_cost_sum = $sum_data->cost_sum-$thing_costs;
-            $sum_data->fill(['cost_sum' => $new_cost_sum])->save();
-           }
+              if($new_cost_sum == 0) {
+                $sum->where('from_who', $thing->from_who)->delete();
+              } else {
+              $sum_data->fill(['cost_sum' => $new_cost_sum])->save();
+              }
+          }
         }
-        //同じfrom_whoのデータがまだある場合，who.{who}に戻るようにしたい。
-        //$who = $thing->from_who;
-        //return redirect('who/{who}')->with(['who' => $who]);
-         return redirect('things');
+        $who = $thing->from_who;
+        $thing->delete();
+        if ($thing->where('from_who', $thing->from_who)->exists()) {
+              return redirect('/things/who/' . $who);
+        } else {
+              return redirect('things');
+        }
+        
     }
     
-  public function returned(Thing $thing, Sum $sum)
+  public function returned(Thing $thing)
     {
-        $things = $thing->onlyTrashed()->whereNotNull('id')->get();
-        $sums = $sum->onlyTrashed()->whereNotNull('id')->get();
-        return view('returned')->with(['things' => $things, 'sums' => $sums]);
+        $things = $thing->onlyTrashed()->get();
+        return view('returned')->with(['things' => $things]);
     }
   
-   public function returned_show(Thing $thing)
+   public function returned_show(Thing $thing, $thing_id)
     {
-        $thing->onlyTrashed()->whereNotNull('id')->get();
-        return view('returned_show')->with(['things' => $things]);
+        $thing_data = $thing->onlyTrashed()->find($thing_id);
+        return view('returned_show')->with(['thing' => $thing_data]);
     } 
-    
-    
   
+  public function forceDelete(Thing $thing)
+    {
+        $thing->onlyTrashed()->where('id', $thing->id)->forceDelete();
+        return redirect('returned');
+    }
+    
 }
 
 
