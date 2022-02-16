@@ -9,8 +9,8 @@
 
         <!-- Fonts -->
         <!--<link href="https:fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">-->
-        <link href="https:fonts.googleapis.com/css?family=Alegreya+Sans+SC:300" rel="stylesheet">
         <link href="{{secure_asset('/assets/css/styles.css')}}" rel="stylesheet">
+        <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 
     </head>
     
@@ -18,7 +18,8 @@
     @section('content')
     
     <body class='register' >
-        <h2 class='main'><i class="far fa-lightbulb"></i><span>You must returne!</span></h2>
+        <i class="fa-solid fa-dollar-sign"></i>
+        <h2 class='main'><i class="far fa-lightbulb"></i><span>You must return!</span></h2>
         　　<form action="/" method="POST">
         　　      @csrf
                 <br>

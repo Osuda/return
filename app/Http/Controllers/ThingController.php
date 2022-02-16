@@ -36,7 +36,7 @@ class ThingController extends Controller
     {
         $input_to_things = $request['thing'];
         $input_to_things['user_id']=0;
-        if ($input_to_things->type == 'もの') {
+        if ($input_to_things['type'] == 'もの') {
          $input_to_things['costs']=0;
         }
         $thing->fill($input_to_things)->save();
@@ -89,6 +89,13 @@ class ThingController extends Controller
         
     }
     
+  public function forcedelete(Thing $thing, $thing_id)
+    {
+      $forcedelete_thing = $thing->onlyTrashed()->find($thing_id);
+      $forcedelete_thing->forcedelete();
+      return redirect('/things/returned');
+    }
+    
   public function returned(Thing $thing)
     {
         $things = $thing->onlyTrashed()->get();
@@ -101,12 +108,6 @@ class ThingController extends Controller
         return view('returned_show')->with(['thing' => $thing_data]);
     } 
   
-  public function forceDelete(Thing $thing)
-    {
-        $thing->onlyTrashed()->where('id', $thing->id)->forceDelete();
-        return redirect('returned');
-    }
-    
 }
 
 

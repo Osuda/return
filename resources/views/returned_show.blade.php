@@ -30,7 +30,7 @@
         </div>    
             <form action="/things/returned/{{ $thing->id }}" id="form_delete" method="post">
                         @csrf
-                        @method('forceDelete')
+                        @method('delete')
                 <input type="submit" style="display:none">
                 <p class='delete_2'>[<span onclick="return deletePost(this);">削除</span>]</p>
             </form>

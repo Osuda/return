@@ -12,6 +12,7 @@
     
     <body>
         <h2 class='main'><i class="far fa-lightbulb"></i><span>{{ $who }}から借りたもの一覧</span></h2>
+        <div class='back'>[<a href='/things'>戻る</a>]</class></div>
                 
         <div class='things_index'>
             
@@ -61,7 +62,6 @@
             @endforeach
             </div>
         </div>       
-        <div class='戻る'>[<a href='/things'>戻る</a>]</class></div>
     </body>
     @endsection
 </html>

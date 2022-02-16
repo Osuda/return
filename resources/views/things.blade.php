@@ -14,6 +14,7 @@
     <body class='things_index'>
         <h2 class='main'><i class="far fa-lightbulb"></i><span>借りもの一覧</span></h2>
         <div class='returned_things'>[<a href='/things/returned'>返却済み一覧</a>]</class></div>
+        <div class='back'>[<a href='/'>戻る</a>]</class></div>
             
             <div class='things_type'>
             <h3 class='type_thing'><もの></h3>
@@ -46,13 +47,12 @@
                 <div class="box_1_tape"> </div>
                 <p class="box_1_title"><p class='thing_id'>{{ $index+1 }}</p></p>
                 <p class="box_1_text">
-                    <p class='cost_sum'>金額：{{ $sum->cost_sum }}円</p>
+                    <p class='cost_sum'>金額：{{ $sum->cost_sum }}</p>
                     <p class='from_who'>誰から：<a href='/things/who/{{$sum->from_who}}'>{{ $sum->from_who }}</p></a>
                 </div>       
             @endforeach
             </div>
         </div>
-        <div class='back'>[<a href='/'>戻る</a>]</class></div>
     </body>
     @endsection
 </html>
